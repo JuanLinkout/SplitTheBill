@@ -28,10 +28,10 @@ class CustomerBillAdapter(private val dataset: Array<CustomerBill>): RecyclerVie
 
     inner class CustomerBillItemViewHolder(private val binding: CustomerBillItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(customerBill: CustomerBill) {
-            binding.customerInitialText.text = customerBill.customerName
-            binding.customerTotalPrice.text = customerBill.totalPrice.toString()
+            binding.customerInitialText.text = customerBill.customerName[0].toString()
+            binding.customerTotalPrice.text = "Total: R$ " + customerBill.totalPrice.toString()
             binding.customerNameText.text = customerBill.customerName
-            binding.customerOrdersQuantityTxt.text = customerBill.orderQuantity.toString()
+            binding.customerOrdersQuantityTxt.text = "Pedidos " + customerBill.orderQuantity.toString()
         }
     }
 }

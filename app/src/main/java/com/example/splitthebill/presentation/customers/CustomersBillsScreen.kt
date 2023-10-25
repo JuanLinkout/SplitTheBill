@@ -14,7 +14,6 @@ class CustomersBillsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityCustomersScreenBinding
     private lateinit var viewModel: CustomersBillsViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomersScreenBinding.inflate(layoutInflater)

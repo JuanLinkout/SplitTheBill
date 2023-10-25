@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.customers.CustomersBillsScreen">
 
     <androidx.recyclerview.widget.RecyclerView
         android:scrollbars="vertical"
         android:padding="16dp"
+        app:spanCount="200"
         android:clipToPadding="false"
         android:id="@+id/customerBillRecyclerView"
         android:layout_width="match_parent"
