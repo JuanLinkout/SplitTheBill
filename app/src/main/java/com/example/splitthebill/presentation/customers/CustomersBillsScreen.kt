@@ -3,7 +3,6 @@ package com.example.splitthebill.presentation.customers
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.example.splitthebill.R
 import com.example.splitthebill.databinding.ActivityCustomersScreenBinding
 
 class CustomersBillsScreen : AppCompatActivity() {
@@ -13,6 +12,7 @@ class CustomersBillsScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_customers_screen)
+        binding = ActivityCustomersScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.splitthebill.data.usecases.GetCustomersBillsImplementation
-import com.example.splitthebill.domain.entities.CustomersBills
+import com.example.splitthebill.domain.entities.CustomerBill
 import com.example.splitthebill.domain.usecases.GetCustomersBillsUseCase
 import kotlinx.coroutines.launch
 
 class CustomersBillsViewModel(private val getCustomersBillsUseCase: GetCustomersBillsUseCase): ViewModel() {
     private val _customerBills = MutableLiveData<List<CustomersBills>>()
-    val customerBills: LiveData<List<CustomersBills>> = _customerBills
+    val customerBills: LiveData<List<CustomerBill>> = _customerBills
 
     init {
         viewModelScope.launch {
