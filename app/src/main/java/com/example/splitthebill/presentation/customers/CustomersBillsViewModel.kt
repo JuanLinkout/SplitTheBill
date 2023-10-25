@@ -11,7 +11,7 @@ import com.example.splitthebill.domain.usecases.GetCustomersBillsUseCase
 import kotlinx.coroutines.launch
 
 class CustomersBillsViewModel(private val getCustomersBillsUseCase: GetCustomersBillsUseCase): ViewModel() {
-    private val _customerBills = MutableLiveData<List<CustomersBills>>()
+    private val _customerBills = MutableLiveData<List<CustomerBill>>()
     val customerBills: LiveData<List<CustomerBill>> = _customerBills
 
     init {

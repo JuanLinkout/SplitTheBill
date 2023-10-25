@@ -12,13 +12,15 @@ import com.example.splitthebill.presentation.utils.StatusBarUtil
 
 class CustomersBillsScreen : AppCompatActivity() {
     private lateinit var binding: ActivityCustomersScreenBinding
-    private val viewModel =
-        ViewModelProvider(this, CustomersBillsViewModel.Factory())[CustomersBillsViewModel::class.java]
+    private lateinit var viewModel: CustomersBillsViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomersScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this, CustomersBillsViewModel.Factory())[CustomersBillsViewModel::class.java]
 
         val observer = Observer<List<CustomerBill>> {
             binding.customerBillRecyclerView.adapter = CustomerBillAdapter(it.toTypedArray())
