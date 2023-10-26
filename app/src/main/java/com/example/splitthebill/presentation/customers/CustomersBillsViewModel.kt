@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.splitthebill.data.repositories.GetCustomersBillsRepositoryImplementation
 import com.example.splitthebill.data.usecases.GetCustomersBillsImplementation
 import com.example.splitthebill.domain.entities.CustomerBill
 import com.example.splitthebill.domain.usecases.GetCustomersBillsUseCase
@@ -26,7 +27,11 @@ class CustomersBillsViewModel(private val getCustomersBillsUseCase: GetCustomers
         fun Factory(): ViewModelProvider.Factory {
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return CustomersBillsViewModel(GetCustomersBillsImplementation()) as T
+                    return CustomersBillsViewModel(
+                        GetCustomersBillsImplementation(
+                            GetCustomersBillsRepositoryImplementation()
+                        )
+                    ) as T
                 }
             }
         }
