@@ -10,7 +10,7 @@ import com.example.splitthebill.domain.entities.CustomerBill
 import com.example.splitthebill.presentation.adapters.CustomerBillAdapter
 import com.example.splitthebill.presentation.utils.StatusBarUtil
 
-class CustomersBillsScreen : AppCompatActivity() {
+class CustomersBillsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCustomersScreenBinding
     private lateinit var viewModel: CustomersBillsViewModel
 
@@ -19,7 +19,10 @@ class CustomersBillsScreen : AppCompatActivity() {
         binding = ActivityCustomersScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, CustomersBillsViewModel.Factory())[CustomersBillsViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            CustomersBillsViewModel.Factory()
+        )[CustomersBillsViewModel::class.java]
 
         val observer = Observer<List<CustomerBill>> {
             binding.customerBillRecyclerView.adapter = CustomerBillAdapter(it.toTypedArray())

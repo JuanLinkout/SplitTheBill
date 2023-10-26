@@ -20,7 +20,7 @@
             android:name=".presentation.customerdetails.CustomerDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.customers.CustomersBillsScreen"
+            android:name=".presentation.customers.CustomersBillsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
