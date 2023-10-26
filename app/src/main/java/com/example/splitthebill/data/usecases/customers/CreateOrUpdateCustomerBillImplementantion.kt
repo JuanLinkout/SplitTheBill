@@ -5,7 +5,7 @@ import com.example.splitthebill.domain.repositories.CreateCustomerBillRepository
 import com.example.splitthebill.domain.repositories.UpdateCustomerBillRepository
 import com.example.splitthebill.domain.usecases.CreateOrUpdateCustomerBillUseCase
 
-class CreateOrUpdateOrUpdateCustomerBillImplementantion(
+class CreateOrUpdateCustomerBillImplementantion(
     private val createCustomerBillRepository: CreateCustomerBillRepository,
     private val updateCustomerBillRepository: UpdateCustomerBillRepository
 ) : CreateOrUpdateCustomerBillUseCase {
