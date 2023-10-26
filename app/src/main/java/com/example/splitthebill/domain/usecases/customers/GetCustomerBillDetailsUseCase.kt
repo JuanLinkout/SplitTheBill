@@ -1,7 +1,6 @@
-package com.example.splitthebill.domain.usecases
+package com.example.splitthebill.domain.usecases.customers
 
-import com.example.splitthebill.domain.entities.CustomerBill
-import com.example.splitthebill.domain.entities.CustomerBillDetails
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 
 interface GetCustomerBillDetailsUseCase {
     suspend fun getCustomerBillDetails(): CustomerBillDetails

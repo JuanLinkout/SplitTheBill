@@ -1,4 +1,4 @@
-package com.example.splitthebill.domain.entities
+package com.example.splitthebill.domain.entities.customers
 
 data class CustomerBill(
     val id: Number?,

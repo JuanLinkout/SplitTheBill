@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.splitthebill.R
 import com.example.splitthebill.databinding.ActivityCustomerDetailsBinding
-import com.example.splitthebill.domain.entities.CustomerBillDetails
-import com.example.splitthebill.presentation.customers.CustomersBillsViewModel
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 
 class CustomerDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCustomerDetailsBinding

@@ -1,8 +1,7 @@
-package com.example.splitthebill.data.repositories
+package com.example.splitthebill.data.repositories.customers
 
-import com.example.splitthebill.domain.entities.CustomerBill
-import com.example.splitthebill.domain.repositories.CreateCustomerBillRepository
-import com.example.splitthebill.domain.repositories.GetCustomersBillsRepository
+import com.example.splitthebill.domain.entities.customers.CustomerBill
+import com.example.splitthebill.domain.repositories.customers.GetCustomersBillsRepository
 
 class GetCustomersBillsRepositoryImplementation : GetCustomersBillsRepository {
     override suspend fun get(): List<CustomerBill> {

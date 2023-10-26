@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.splitthebill.databinding.ActivityCustomersScreenBinding
-import com.example.splitthebill.domain.entities.CustomerBill
+import com.example.splitthebill.domain.entities.customers.CustomerBill
 import com.example.splitthebill.presentation.adapters.CustomerBillAdapter
 import com.example.splitthebill.presentation.utils.StatusBarUtil
 

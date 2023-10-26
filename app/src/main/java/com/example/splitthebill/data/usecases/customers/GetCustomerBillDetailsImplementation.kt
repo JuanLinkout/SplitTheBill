@@ -1,8 +1,8 @@
-package com.example.splitthebill.data.usecases
+package com.example.splitthebill.data.usecases.customers
 
-import com.example.splitthebill.domain.entities.CustomerBillDetails
-import com.example.splitthebill.domain.entities.OrderItem
-import com.example.splitthebill.domain.usecases.GetCustomerBillDetailsUseCase
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
+import com.example.splitthebill.domain.entities.orderitem.OrderItem
+import com.example.splitthebill.domain.usecases.customers.GetCustomerBillDetailsUseCase
 
 class GetCustomerBillDetailsImplementation: GetCustomerBillDetailsUseCase {
     override suspend fun getCustomerBillDetails(): CustomerBillDetails {

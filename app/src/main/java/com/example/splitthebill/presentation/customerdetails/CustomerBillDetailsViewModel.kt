@@ -5,12 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.splitthebill.data.usecases.GetCustomerBillDetailsImplementation
-import com.example.splitthebill.data.usecases.GetCustomersBillsImplementation
-import com.example.splitthebill.domain.entities.CustomerBill
-import com.example.splitthebill.domain.entities.CustomerBillDetails
-import com.example.splitthebill.domain.usecases.GetCustomerBillDetailsUseCase
-import com.example.splitthebill.domain.usecases.GetCustomersBillsUseCase
+import com.example.splitthebill.data.usecases.customers.GetCustomerBillDetailsImplementation
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
+import com.example.splitthebill.domain.usecases.customers.GetCustomerBillDetailsUseCase
 import kotlinx.coroutines.launch
 
 class CustomerBillDetailsViewModel(private val getCustomerBillDetails: GetCustomerBillDetailsUseCase) :

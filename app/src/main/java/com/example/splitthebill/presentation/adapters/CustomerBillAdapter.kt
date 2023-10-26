@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.splitthebill.databinding.CustomerBillItemBinding
-import com.example.splitthebill.domain.entities.CustomerBill
+import com.example.splitthebill.domain.entities.customers.CustomerBill
 
 class CustomerBillAdapter(private val dataset: Array<CustomerBill>): RecyclerView.Adapter<CustomerBillAdapter.CustomerBillItemViewHolder>() {
     override fun onCreateViewHolder(

@@ -1,9 +1,9 @@
-package com.example.splitthebill.data.usecases
+package com.example.splitthebill.data.usecases.customers
 
-import com.example.splitthebill.domain.entities.CustomerBill
-import com.example.splitthebill.domain.repositories.CreateCustomerBillRepository
-import com.example.splitthebill.domain.repositories.UpdateCustomerBillRepository
-import com.example.splitthebill.domain.usecases.CreateOrUpdateCustomerBillUseCase
+import com.example.splitthebill.domain.entities.customers.CustomerBill
+import com.example.splitthebill.domain.repositories.customers.CreateCustomerBillRepository
+import com.example.splitthebill.domain.repositories.customers.UpdateCustomerBillRepository
+import com.example.splitthebill.domain.usecases.customers.CreateOrUpdateCustomerBillUseCase
 
 class CreateOrUpdateCustomerBillImplementantion(
     private val createCustomerBillRepository: CreateCustomerBillRepository,

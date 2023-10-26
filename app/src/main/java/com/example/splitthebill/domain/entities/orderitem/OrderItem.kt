@@ -1,4 +1,4 @@
-package com.example.splitthebill.domain.entities
+package com.example.splitthebill.domain.entities.orderitem
 
 data class OrderItem(
     val id: Number,
