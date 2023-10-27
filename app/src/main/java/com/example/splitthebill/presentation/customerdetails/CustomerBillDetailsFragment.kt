@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.splitthebill.databinding.FragmentCustomersBillsBinding
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
+import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
 
 class CustomerBillDetailsFragment : Fragment() {
     private val args: CustomerBillDetailsFragmentArgs by navArgs()
@@ -27,13 +28,13 @@ class CustomerBillDetailsFragment : Fragment() {
             CustomerBillDetailsViewModel.Factory()
         )[CustomerBillDetailsViewModel::class.java]
 
-        if (args.type == "edit") {
+        if (args.type == CustomerBillTypeEnum.EDIT) {
             val observer = Observer<CustomerBillDetails> {}
             viewModel.customerBillDetails.observe(this, observer)
-        } else if (args.type == "create") {
+        } else if (args.type == CustomerBillTypeEnum.CREATE) {
             // TODO: Popular para quando for criação
         }
-        
+
         return binding.root
     }
 }

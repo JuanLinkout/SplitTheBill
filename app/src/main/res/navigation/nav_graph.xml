@@ -27,8 +27,8 @@
             app:argType="integer" />
         <argument
             android:name="type"
-            app:argType="string"
-            android:defaultValue="create" />
+            app:argType="com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum"
+            android:defaultValue="CREATE" />
     </fragment>
     <fragment
         android:id="@+id/orderItemDetails"
