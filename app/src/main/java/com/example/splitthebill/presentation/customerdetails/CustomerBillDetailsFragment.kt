@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.example.splitthebill.databinding.FragmentCustomersBillsBinding
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 
 class CustomerBillDetailsFragment : Fragment() {
+    private val args: CustomerBillDetailsFragmentArgs by navArgs()
     private lateinit var binding: FragmentCustomersBillsBinding
     private lateinit var viewModel: CustomerBillDetailsViewModel
 
@@ -25,11 +27,13 @@ class CustomerBillDetailsFragment : Fragment() {
             CustomerBillDetailsViewModel.Factory()
         )[CustomerBillDetailsViewModel::class.java]
 
-        val observer = Observer<CustomerBillDetails> {
-            // Fazer o binding com as informações aqui quando tiver o xml
+        if (args.type == "edit") {
+            val observer = Observer<CustomerBillDetails> {}
+            viewModel.customerBillDetails.observe(this, observer)
+        } else if (args.type == "create") {
+            // TODO: Popular para quando for criação
         }
-        viewModel.customerBillDetails.observe(this, observer)
-
+        
         return binding.root
     }
 }
