@@ -1,7 +1,7 @@
 package com.example.splitthebill.domain.repositories.customers
 
-import com.example.splitthebill.domain.entities.customers.CustomerBill
+import com.example.splitthebill.domain.entities.customers.CustomerDetailsFromRepository
 
 interface GetCustomersBillsRepository {
-    suspend fun get(): List<CustomerBill>
+    suspend fun get(): List<CustomerDetailsFromRepository>
 }
