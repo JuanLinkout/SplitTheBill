@@ -1,15 +1,23 @@
 package com.example.splitthebill.data.usecases.customers
 
+import com.example.splitthebill.data.repositories.customers.GetCustomerDetailsRepositoryImplementation
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.entities.orderitem.OrderItem
+import com.example.splitthebill.domain.repositories.orders.GetCustomerOrdersByIdRepository
 import com.example.splitthebill.domain.usecases.customers.GetCustomerBillDetailsUseCase
 
-class GetCustomerBillDetailsImplementation: GetCustomerBillDetailsUseCase {
+class GetCustomerBillDetailsImplementation(
+    private val getCustomerOrdersByIdRepository: GetCustomerOrdersByIdRepository,
+    private val getCustomerDetailsRepository: GetCustomerDetailsRepositoryImplementation
+) : GetCustomerBillDetailsUseCase {
     override suspend fun getCustomerBillDetails(id: Number): CustomerBillDetails {
+        val ordersList = getCustomerOrdersByIdRepository.getOrders(id)
+        val customerDetails = getCustomerDetailsRepository.get(id)
+
         return CustomerBillDetails(
-            id = 1,
-            customerName = "Juan Rossi",
-            orderItems = listOf(OrderItem(id = 1, name = "Teste", price = 10.9, quantity = 2))
+            id = customerDetails.id,
+            customerName = customerDetails.customerName,
+            orderItems = ordersList
         )
     }
 }

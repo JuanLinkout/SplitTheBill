@@ -40,13 +40,6 @@ class OrderItemAdapater(private val dataset: Array<OrderItem>) :
                 "Total: R$ " + totalPrice.toString()
             binding.orderQuantityText.text =
                 orderItem.quantity.toString() + "x"
-//            binding.root.setOnClickListener {
-//                val action =
-//                    CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
-//                        customerBill.id!!.toInt()
-//                    )
-//                binding.root.findNavController().navigate(action)
-//            }
         }
     }
 }

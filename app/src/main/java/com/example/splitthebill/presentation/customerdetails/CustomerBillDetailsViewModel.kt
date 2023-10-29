@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.splitthebill.data.repositories.customers.CreateCustomerBillRepositoryImplementation
+import com.example.splitthebill.data.repositories.customers.GetCustomerDetailsRepositoryImplementation
 import com.example.splitthebill.data.repositories.customers.UpdateCustomerBillRepositoryImplementation
+import com.example.splitthebill.data.repositories.orders.GetCustomerOrdersByIdRepositoryImplementation
 import com.example.splitthebill.data.usecases.customers.CreateOrUpdateCustomerBillImplementantion
 import com.example.splitthebill.data.usecases.customers.GetCustomerBillDetailsImplementation
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
@@ -39,7 +41,10 @@ class CustomerBillDetailsViewModel(
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     return CustomerBillDetailsViewModel(
-                        GetCustomerBillDetailsImplementation(),
+                        GetCustomerBillDetailsImplementation(
+                            getCustomerDetailsRepository = GetCustomerDetailsRepositoryImplementation(),
+                            getCustomerOrdersByIdRepository = GetCustomerOrdersByIdRepositoryImplementation()
+                        ),
                         CreateOrUpdateCustomerBillImplementantion(
                             createCustomerBillRepository = CreateCustomerBillRepositoryImplementation(),
                             updateCustomerBillRepository = UpdateCustomerBillRepositoryImplementation()
