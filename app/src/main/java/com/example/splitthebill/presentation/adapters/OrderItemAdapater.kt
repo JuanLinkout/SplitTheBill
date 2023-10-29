@@ -3,25 +3,23 @@ package com.example.splitthebill.presentation.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.splitthebill.databinding.CustomerBillItemBinding
-import com.example.splitthebill.domain.entities.customers.CustomerBill
-import com.example.splitthebill.presentation.customers.CustomersBillsFragmentDirections
+import com.example.splitthebill.databinding.OrderItemBinding
+import com.example.splitthebill.domain.entities.orderitem.OrderItem
 
-class CustomerBillAdapter(private val dataset: Array<CustomerBill>) :
-    RecyclerView.Adapter<CustomerBillAdapter.CustomerBillItemViewHolder>() {
+class OrderItemAdapater(private val dataset: Array<OrderItem>) :
+    RecyclerView.Adapter<OrderItemAdapater.OrderItemViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CustomerBillAdapter.CustomerBillItemViewHolder {
+    ): OrderItemAdapater.OrderItemViewHolder {
         val binding =
-            CustomerBillItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CustomerBillItemViewHolder(binding)
+            OrderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return OrderItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(
-        holder: CustomerBillAdapter.CustomerBillItemViewHolder,
+        holder: OrderItemAdapater.OrderItemViewHolder,
         position: Int
     ) {
         holder.bind(dataset[position])
@@ -31,22 +29,24 @@ class CustomerBillAdapter(private val dataset: Array<CustomerBill>) :
         return dataset.size
     }
 
-    inner class CustomerBillItemViewHolder(private val binding: CustomerBillItemBinding) :
+    inner class OrderItemViewHolder(private val binding: OrderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(customerBill: CustomerBill) {
-            binding.customerInitialText.text = customerBill.customerName[0].toString()
-            binding.customerTotalPrice.text = "Total: R$ " + customerBill.totalPrice.toString()
-            binding.customerNameText.text = customerBill.customerName
-            binding.customerOrdersQuantityTxt.text =
-                "Pedidos " + customerBill.orderQuantity.toString()
-            binding.root.setOnClickListener {
-                val action =
-                    CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
-                        customerBill.id!!.toInt()
-                    )
-                binding.root.findNavController().navigate(action)
-            }
+        fun bind(orderItem: OrderItem) {
+            val totalPrice = orderItem.price.toFloat() * orderItem.quantity.toFloat()
+
+            binding.orderNameText.text = orderItem.name
+            binding.orderTotalPriceText.text =
+                "Total: R$ " + totalPrice.toString()
+            binding.orderQuantityText.text =
+                orderItem.quantity.toString() + "x"
+//            binding.root.setOnClickListener {
+//                val action =
+//                    CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
+//                        customerBill.id!!.toInt()
+//                    )
+//                binding.root.findNavController().navigate(action)
+//            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.splitthebill.data.repositories.customers
 
 import com.example.splitthebill.domain.entities.customers.CustomerBill
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.repositories.customers.GetCustomersBillsRepository
 
 class GetCustomersBillsRepositoryImplementation : GetCustomersBillsRepository {

@@ -1,7 +1,7 @@
 package com.example.splitthebill.domain.repositories.customers
 
-import com.example.splitthebill.domain.entities.customers.CustomerBill
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 
 interface UpdateCustomerBillRepository {
-    suspend fun update(customerBill: CustomerBill): Unit
+    suspend fun update(customerBill: CustomerBillDetails): Unit
 }

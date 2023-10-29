@@ -5,7 +5,7 @@ import com.example.splitthebill.domain.entities.orderitem.OrderItem
 import com.example.splitthebill.domain.usecases.customers.GetCustomerBillDetailsUseCase
 
 class GetCustomerBillDetailsImplementation: GetCustomerBillDetailsUseCase {
-    override suspend fun getCustomerBillDetails(): CustomerBillDetails {
+    override suspend fun getCustomerBillDetails(id: Number): CustomerBillDetails {
         return CustomerBillDetails(
             id = 1,
             customerName = "Juan Rossi",

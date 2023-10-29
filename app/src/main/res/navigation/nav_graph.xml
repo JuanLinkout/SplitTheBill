@@ -9,7 +9,7 @@
         android:id="@+id/customersBillsFragment"
         android:name="com.example.splitthebill.presentation.customers.CustomersBillsFragment"
         android:label="fragment_customers_bills"
-        tools:layout="@layout/fragment_customers_bills" >
+        tools:layout="@layout/fragment_customers_bills">
         <action
             android:id="@+id/action_customersBillsFragment_to_customerBillDetailsFragment"
             app:destination="@id/customerBillDetailsFragment"
@@ -22,7 +22,7 @@
         android:id="@+id/customerBillDetailsFragment"
         android:name="com.example.splitthebill.presentation.customerdetails.CustomerBillDetailsFragment"
         android:label="fragment_customer_bill_details"
-        tools:layout="@layout/fragment_customer_bill_details" >
+        tools:layout="@layout/fragment_customer_bill_details">
         <action
             android:id="@+id/action_customerBillDetailsFragment_to_orderItemDetails"
             app:destination="@id/orderItemDetails" />
@@ -31,8 +31,7 @@
             app:argType="integer" />
         <argument
             android:name="type"
-            app:argType="com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum"
-            android:defaultValue="CREATE" />
+            app:argType="com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum" />
     </fragment>
     <fragment
         android:id="@+id/orderItemDetails"

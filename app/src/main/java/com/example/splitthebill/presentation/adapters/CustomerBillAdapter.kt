@@ -7,6 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.splitthebill.databinding.CustomerBillItemBinding
 import com.example.splitthebill.domain.entities.customers.CustomerBill
+import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
+import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
 import com.example.splitthebill.presentation.customers.CustomersBillsFragmentDirections
 
 class CustomerBillAdapter(private val dataset: Array<CustomerBill>) :
@@ -43,7 +45,8 @@ class CustomerBillAdapter(private val dataset: Array<CustomerBill>) :
             binding.root.setOnClickListener {
                 val action =
                     CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
-                        customerBill.id!!.toInt()
+                        customerBill.id!!.toInt(),
+                        CustomerBillTypeEnum.EDIT
                     )
                 binding.root.findNavController().navigate(action)
             }
