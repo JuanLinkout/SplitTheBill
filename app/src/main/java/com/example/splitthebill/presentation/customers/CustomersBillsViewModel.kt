@@ -10,6 +10,7 @@ import com.example.splitthebill.data.usecases.customers.GetCustomersBillsImpleme
 import com.example.splitthebill.domain.entities.customers.CustomerBill
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.usecases.customers.GetCustomersBillsUseCase
+import com.example.splitthebill.presentation.MainActivity
 import kotlinx.coroutines.launch
 
 class CustomersBillsViewModel(private val getCustomersBillsUseCase: GetCustomersBillsUseCase) :
@@ -29,9 +30,7 @@ class CustomersBillsViewModel(private val getCustomersBillsUseCase: GetCustomers
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     return CustomersBillsViewModel(
-                        GetCustomersBillsImplementation(
-                            GetCustomersBillsRepositoryImplementation()
-                        )
+                        MainActivity.appModule.customerUseCases.getCustomersBills
                     ) as T
                 }
             }

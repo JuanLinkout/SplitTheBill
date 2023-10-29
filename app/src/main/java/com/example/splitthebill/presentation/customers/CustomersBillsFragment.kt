@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -15,22 +16,18 @@ import com.example.splitthebill.domain.entities.customers.CustomerBill
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
 import com.example.splitthebill.presentation.adapters.CustomerBillAdapter
+import com.example.splitthebill.presentation.customerdetails.CustomerBillDetailsViewModel
 import com.example.splitthebill.presentation.utils.StatusBarUtil
 
 class CustomersBillsFragment : Fragment() {
     private lateinit var binding: FragmentCustomersBillsBinding
-    private lateinit var viewModel: CustomersBillsViewModel
+    private val viewModel by viewModels<CustomersBillsViewModel>(factoryProducer = { CustomersBillsViewModel.Factory() })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCustomersBillsBinding.inflate(layoutInflater)
-
-        viewModel = ViewModelProvider(
-            this,
-            CustomersBillsViewModel.Factory()
-        )[CustomersBillsViewModel::class.java]
 
         val observer = Observer<List<CustomerBill>> {
             binding.customerBillRecyclerView.adapter = CustomerBillAdapter(it.toTypedArray())

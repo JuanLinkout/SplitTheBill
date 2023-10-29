@@ -12,12 +12,14 @@ import com.example.splitthebill.data.repositories.orders.GetCustomerOrdersByIdRe
 import com.example.splitthebill.data.usecases.customers.CreateOrUpdateCustomerBillImplementantion
 import com.example.splitthebill.data.usecases.customers.GetCustomerBillDetailsImplementation
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
+import com.example.splitthebill.domain.usecases.customers.CreateOrUpdateCustomerBillUseCase
 import com.example.splitthebill.domain.usecases.customers.GetCustomerBillDetailsUseCase
+import com.example.splitthebill.presentation.MainActivity
 import kotlinx.coroutines.launch
 
 class CustomerBillDetailsViewModel(
     private val getCustomerBillDetails: GetCustomerBillDetailsUseCase,
-    private val createOrUpdateCustomerBill: CreateOrUpdateCustomerBillImplementantion
+    private val createOrUpdateCustomerBill: CreateOrUpdateCustomerBillUseCase
 ) :
     ViewModel() {
     private val _customerBillDetails = MutableLiveData<CustomerBillDetails>()
@@ -41,14 +43,8 @@ class CustomerBillDetailsViewModel(
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     return CustomerBillDetailsViewModel(
-                        GetCustomerBillDetailsImplementation(
-                            getCustomerDetailsRepository = GetCustomerDetailsRepositoryImplementation(),
-                            getCustomerOrdersByIdRepository = GetCustomerOrdersByIdRepositoryImplementation()
-                        ),
-                        CreateOrUpdateCustomerBillImplementantion(
-                            createCustomerBillRepository = CreateCustomerBillRepositoryImplementation(),
-                            updateCustomerBillRepository = UpdateCustomerBillRepositoryImplementation()
-                        )
+                        MainActivity.appModule.customerUseCases.getCustomerBillDetails,
+                        MainActivity.appModule.customerUseCases.createOrUpdateCustomerBill
                     ) as T
                 }
             }
