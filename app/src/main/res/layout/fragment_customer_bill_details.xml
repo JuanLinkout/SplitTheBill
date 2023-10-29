@@ -50,7 +50,7 @@
         android:src="@android:drawable/ic_menu_add"
         app:elevation="6dp"
         app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="12dp"
         android:contentDescription="Adicionar novo pedido" />
