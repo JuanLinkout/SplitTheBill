@@ -37,5 +37,12 @@
         android:id="@+id/orderItemDetails"
         android:name="com.example.splitthebill.presentation.orderitemdetails.OrderItemDetails"
         android:label="fragment_order_item_details"
-        tools:layout="@layout/fragment_order_item_details" />
+        tools:layout="@layout/fragment_order_item_details" >
+        <argument
+            android:name="orderItem"
+            app:argType="com.example.splitthebill.domain.entities.orderitem.OrderItem" />
+        <argument
+            android:name="type"
+            app:argType="com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum" />
+    </fragment>
 </navigation>

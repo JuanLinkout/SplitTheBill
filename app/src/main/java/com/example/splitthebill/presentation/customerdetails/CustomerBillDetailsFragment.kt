@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.splitthebill.databinding.FragmentCustomerBillDetailsBinding
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
+import com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum
+import com.example.splitthebill.domain.entities.orderitem.OrderItem
+import com.example.splitthebill.infra.room.entities.Order
 import com.example.splitthebill.presentation.adapters.OrderItemAdapater
 
 class CustomerBillDetailsFragment : Fragment() {
@@ -35,6 +39,14 @@ class CustomerBillDetailsFragment : Fragment() {
 
                 binding.customerNameEditText.setText(customerDetails.customerName)
                 binding.confirmButton.text = "Confirmar edição"
+                binding.addOrderButton.setOnClickListener {
+                    val action =
+                        CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
+                            null,
+                            OrderItemTypeEnum.CREATE
+                        )
+                    findNavController().navigate(action)
+                }
 
                 binding.confirmButton.setOnClickListener {
                     viewModel.createOrUpdate(
@@ -44,6 +56,7 @@ class CustomerBillDetailsFragment : Fragment() {
                             id = customerDetails.id
                         )
                     )
+                    findNavController().popBackStack()
                 }
             }
             viewModel.customerBillDetails.observe(viewLifecycleOwner, observer)
@@ -59,6 +72,7 @@ class CustomerBillDetailsFragment : Fragment() {
                         id = null
                     )
                 )
+                findNavController().popBackStack()
             }
         }
 

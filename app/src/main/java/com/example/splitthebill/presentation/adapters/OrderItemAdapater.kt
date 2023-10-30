@@ -3,9 +3,12 @@ package com.example.splitthebill.presentation.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.splitthebill.databinding.OrderItemBinding
+import com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum
 import com.example.splitthebill.domain.entities.orderitem.OrderItem
+import com.example.splitthebill.presentation.customerdetails.CustomerBillDetailsFragmentDirections
 
 class OrderItemAdapater(private val dataset: Array<OrderItem>) :
     RecyclerView.Adapter<OrderItemAdapater.OrderItemViewHolder>() {
@@ -40,6 +43,14 @@ class OrderItemAdapater(private val dataset: Array<OrderItem>) :
                 "Total: R$ " + totalPrice.toString()
             binding.orderQuantityText.text =
                 orderItem.quantity.toString() + "x"
+
+            binding.root.setOnClickListener {
+                val action = CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
+                    orderItem,
+                    OrderItemTypeEnum.EDIT
+                )
+                binding.root.findNavController().navigate(action)
+            }
         }
     }
 }
