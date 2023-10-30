@@ -9,6 +9,7 @@ import com.example.splitthebill.data.usecases.customers.DeleteCustomerBillImplem
 import com.example.splitthebill.data.usecases.customers.GetCustomerBillDetailsImplementation
 import com.example.splitthebill.data.usecases.customers.GetCustomersBillsImplementation
 import com.example.splitthebill.data.usecases.orders.CreateOrUpdateOrderItemImplementantion
+import com.example.splitthebill.data.usecases.orders.DeleteOrderItemImplementantion
 import com.example.splitthebill.domain.usecases.customers.CustomerUseCases
 import com.example.splitthebill.domain.usecases.orders.CreateOrUpdateOrderItemUseCase
 import com.example.splitthebill.domain.usecases.orders.OrdersUseCases
@@ -39,6 +40,9 @@ class AppModuleImplementation(
             createOrUpdateOrderItemUseCase = CreateOrUpdateOrderItemImplementantion(
                 createOrderItemRepository = ordersRepository,
                 updateOrderItemRepository = ordersRepository
+            ),
+            deleteOrderItemUseCase = DeleteOrderItemImplementantion(
+                deleteOrderItemRepository = ordersRepository
             )
         )
     }

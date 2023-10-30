@@ -1,5 +1,6 @@
 package com.example.splitthebill.presentation.customerdetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +18,10 @@ import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
 import com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum
 import com.example.splitthebill.domain.entities.orderitem.OrderItem
 import com.example.splitthebill.infra.room.entities.Order
+import com.example.splitthebill.presentation.adapters.AdapterOnClickListener
 import com.example.splitthebill.presentation.adapters.OrderItemAdapater
 import com.example.splitthebill.presentation.customers.CustomersBillsFragment
+import com.example.splitthebill.presentation.customers.CustomersBillsFragmentDirections
 
 class CustomerBillDetailsFragment : Fragment() {
     private val args: CustomerBillDetailsFragmentArgs by navArgs()
@@ -36,7 +40,7 @@ class CustomerBillDetailsFragment : Fragment() {
                 binding.customerBillRecyclerView.adapter =
                     OrderItemAdapater(
                         customerDetails.orderItems.toTypedArray(),
-                        args.customerId.toLong()
+                        AdapaterCallback()
                     )
                 binding.customerBillRecyclerView.layoutManager =
                     LinearLayoutManager(binding.root.context)
@@ -82,5 +86,29 @@ class CustomerBillDetailsFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    inner class AdapaterCallback : AdapterOnClickListener {
+        override fun onTileContactClick(position: Int) {
+            val list = viewModel.customerBillDetails.value?.orderItems
+            val orderItem = list?.find { it.id == list[position].id } ?: return
+            val action =
+                CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
+                    orderItem,
+                    OrderItemTypeEnum.EDIT,
+                    args.customerId.toLong()
+                )
+            binding.root.findNavController().navigate(action)
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        override fun onRemoveClick(position: Int) {
+            val list = viewModel.customerBillDetails.value?.orderItems
+            val orderItem = list?.find { it.id == list[position].id } ?: return
+            orderItem.id?.let {
+                viewModel.delete(it.toInt(), args.customerId)
+                binding.customerBillRecyclerView.adapter?.notifyDataSetChanged()
+            }
+        }
     }
 }

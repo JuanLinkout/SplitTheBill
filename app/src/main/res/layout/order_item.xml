@@ -15,7 +15,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/deleteButton" />
 
     <TextView
         android:id="@+id/orderQuantityText"
@@ -24,17 +24,29 @@
         android:text="1x"
         android:textColor="@color/text_secondary"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/orderNameText" />
 
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/orderNameText"
-        app:layout_constraintStart_toEndOf="@id/orderQuantityText"
         android:id="@+id/orderTotalPriceText"
-        android:text="Total: R$ 390,99"
-        android:layout_marginStart="12dp"
-        android:textSize="12sp"
-        android:textColor="@color/text_secondary"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Total: R$ 390,99"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteButton"
+        app:layout_constraintStart_toEndOf="@id/orderQuantityText"
+        app:layout_constraintTop_toBottomOf="@id/orderNameText" />
+
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:src="@android:drawable/ic_menu_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Delete item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

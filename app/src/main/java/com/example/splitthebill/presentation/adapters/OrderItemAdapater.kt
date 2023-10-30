@@ -10,7 +10,7 @@ import com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum
 import com.example.splitthebill.domain.entities.orderitem.OrderItem
 import com.example.splitthebill.presentation.customerdetails.CustomerBillDetailsFragmentDirections
 
-class OrderItemAdapater(private val dataset: Array<OrderItem>, private val customerId: Long) :
+class OrderItemAdapater(private val dataset: Array<OrderItem>, private val onClickListener: AdapterOnClickListener) :
     RecyclerView.Adapter<OrderItemAdapater.OrderItemViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,7 +25,7 @@ class OrderItemAdapater(private val dataset: Array<OrderItem>, private val custo
         holder: OrderItemAdapater.OrderItemViewHolder,
         position: Int
     ) {
-        holder.bind(dataset[position])
+        holder.bind(dataset[position], position)
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +35,7 @@ class OrderItemAdapater(private val dataset: Array<OrderItem>, private val custo
     inner class OrderItemViewHolder(private val binding: OrderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(orderItem: OrderItem) {
+        fun bind(orderItem: OrderItem, position: Int) {
             val totalPrice = orderItem.price.toFloat() * orderItem.quantity.toFloat()
 
             binding.orderNameText.text = orderItem.name
@@ -44,15 +44,8 @@ class OrderItemAdapater(private val dataset: Array<OrderItem>, private val custo
             binding.orderQuantityText.text =
                 orderItem.quantity.toString() + "x"
 
-            binding.root.setOnClickListener {
-                val action =
-                    CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
-                        orderItem,
-                        OrderItemTypeEnum.EDIT,
-                        customerId
-                    )
-                binding.root.findNavController().navigate(action)
-            }
+            binding.root.setOnClickListener { onClickListener.onTileContactClick(position) }
+            binding.deleteButton.setOnClickListener { onClickListener.onRemoveClick(position) }
         }
     }
 }
