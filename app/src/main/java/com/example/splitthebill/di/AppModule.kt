@@ -3,19 +3,24 @@ package com.example.splitthebill.di
 import android.content.Context
 import com.example.splitthebill.data.repositories.customers.CustomersRepository
 import com.example.splitthebill.data.repositories.orders.GetCustomerOrdersByIdRepositoryImplementation
+import com.example.splitthebill.data.repositories.orders.OrdersRepository
 import com.example.splitthebill.data.usecases.customers.CreateOrUpdateCustomerBillImplementantion
 import com.example.splitthebill.data.usecases.customers.GetCustomerBillDetailsImplementation
 import com.example.splitthebill.data.usecases.customers.GetCustomersBillsImplementation
+import com.example.splitthebill.data.usecases.orders.CreateOrUpdateOrderItemImplementantion
 import com.example.splitthebill.domain.usecases.customers.CustomerUseCases
+import com.example.splitthebill.domain.usecases.orders.CreateOrUpdateOrderItemUseCase
+import com.example.splitthebill.domain.usecases.orders.OrdersUseCases
 import com.example.splitthebill.infra.room.AppDatabase
 
 interface AppModule {
     val customerUseCases: CustomerUseCases
+    val ordersUseCases: OrdersUseCases
 }
 
 class AppModuleImplementation(
     private val appContext: Context
-): AppModule {
+) : AppModule {
     private val appDatabase: AppDatabase by lazy {
         AppDatabase.getDatabase(appContext)
     }
@@ -24,10 +29,25 @@ class AppModuleImplementation(
         CustomersRepository(appDatabase.customerDao())
     }
 
+    private val ordersRepository: OrdersRepository by lazy {
+        OrdersRepository(appDatabase.orderDao())
+    }
+
+    override val ordersUseCases: OrdersUseCases by lazy {
+        OrdersUseCases(
+            createOrUpdateOrderItemUseCase = CreateOrUpdateOrderItemImplementantion(
+                createOrderItemRepository = ordersRepository,
+                updateOrderItemRepository = ordersRepository
+            )
+        )
+    }
+
     override val customerUseCases: CustomerUseCases by lazy {
         CustomerUseCases(
             getCustomerBillDetails = GetCustomerBillDetailsImplementation(
-                getCustomerOrdersByIdRepository = GetCustomerOrdersByIdRepositoryImplementation(appDatabase.orderDao()),
+                getCustomerOrdersByIdRepository = GetCustomerOrdersByIdRepositoryImplementation(
+                    appDatabase.orderDao()
+                ),
                 getCustomerDetailsRepository = customerRepository
             ),
             getCustomersBills = GetCustomersBillsImplementation(
