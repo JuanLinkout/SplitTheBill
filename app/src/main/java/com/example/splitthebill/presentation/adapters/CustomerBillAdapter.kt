@@ -11,7 +11,10 @@ import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
 import com.example.splitthebill.presentation.customers.CustomersBillsFragmentDirections
 
-class CustomerBillAdapter(private val dataset: Array<CustomerBill>) :
+class CustomerBillAdapter(
+    private val dataset: Array<CustomerBill>,
+    private val onClickListener: AdapterOnClickListener
+) :
     RecyclerView.Adapter<CustomerBillAdapter.CustomerBillItemViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,30 +29,27 @@ class CustomerBillAdapter(private val dataset: Array<CustomerBill>) :
         holder: CustomerBillAdapter.CustomerBillItemViewHolder,
         position: Int
     ) {
-        holder.bind(dataset[position])
+        holder.bind(dataset[position], position)
     }
 
     override fun getItemCount(): Int {
         return dataset.size
     }
 
-    inner class CustomerBillItemViewHolder(private val binding: CustomerBillItemBinding) :
+    inner class CustomerBillItemViewHolder(
+        private val binding: CustomerBillItemBinding
+
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(customerBill: CustomerBill) {
+        fun bind(customerBill: CustomerBill, position: Int) {
             binding.customerInitialText.text = customerBill.customerName[0].toString()
             binding.customerTotalPrice.text = "Total: R$ " + customerBill.totalPrice.toString()
             binding.customerNameText.text = customerBill.customerName
             binding.customerOrdersQuantityTxt.text =
                 "Pedidos " + customerBill.orderQuantity.toString()
-            binding.root.setOnClickListener {
-                val action =
-                    CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
-                        customerBill.id!!.toInt(),
-                        CustomerBillTypeEnum.EDIT
-                    )
-                binding.root.findNavController().navigate(action)
-            }
+            binding.deleteButton.setOnClickListener { onClickListener.onRemoveClick(position) }
+            binding.root.setOnClickListener { onClickListener.onTileContactClick(position) }
         }
     }
 }

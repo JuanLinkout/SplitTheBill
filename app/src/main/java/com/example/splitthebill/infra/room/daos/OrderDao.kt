@@ -16,4 +16,10 @@ interface OrderDao {
 
     @Query("SELECT * FROM `order` WHERE customer_id = :customerId")
     suspend fun getOrdersForCustomer(customerId: Long): List<Order>
+
+    @Query("DELETE FROM `order` WHERE id = :orderId")
+    suspend fun deleteOrder(orderId: Long): Unit
+
+    @Query("DELETE FROM `order` WHERE customer_id = :customerId")
+    suspend fun deleteAllOrders(customerId: Long): Unit
 }

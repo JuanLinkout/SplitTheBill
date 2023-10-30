@@ -4,6 +4,7 @@ import androidx.room.Dao
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.entities.customers.CustomerDetailsFromRepository
 import com.example.splitthebill.domain.repositories.customers.CreateCustomerBillRepository
+import com.example.splitthebill.domain.repositories.customers.DeleteCustomerBillRepository
 import com.example.splitthebill.domain.repositories.customers.GetCustomersBillsRepository
 import com.example.splitthebill.domain.repositories.customers.GetCustomersDetailsRepository
 import com.example.splitthebill.domain.repositories.customers.UpdateCustomerBillRepository
@@ -13,7 +14,7 @@ import com.example.splitthebill.infra.room.entities.Customer
 @Dao
 class CustomersRepository(private val customerDao: CustomerDao) :
     GetCustomersBillsRepository, GetCustomersDetailsRepository,
-    CreateCustomerBillRepository, UpdateCustomerBillRepository {
+    CreateCustomerBillRepository, UpdateCustomerBillRepository, DeleteCustomerBillRepository {
     override suspend fun create(customerBill: CustomerBillDetails) {
         customerDao.insertCustomer(Customer(name = customerBill.customerName))
     }
@@ -36,5 +37,9 @@ class CustomersRepository(private val customerDao: CustomerDao) :
                 name = customerBill.customerName
             )
         )
+    }
+
+    override suspend fun delete(customerBillId: Number) {
+        customerDao.deleteCustomerBill(customerBillId.toLong())
     }
 }

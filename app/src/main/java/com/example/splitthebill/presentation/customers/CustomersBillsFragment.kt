@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener
 import com.example.splitthebill.databinding.FragmentCustomersBillsBinding
 import com.example.splitthebill.domain.entities.customers.CustomerBill
 import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
+import com.example.splitthebill.presentation.adapters.AdapterOnClickListener
 import com.example.splitthebill.presentation.adapters.CustomerBillAdapter
 import com.example.splitthebill.presentation.utils.StatusBarUtil
 
@@ -27,7 +29,7 @@ class CustomersBillsFragment : Fragment() {
         binding = FragmentCustomersBillsBinding.inflate(layoutInflater)
 
         val observer = Observer<List<CustomerBill>> {
-            binding.customerBillRecyclerView.adapter = CustomerBillAdapter(it.toTypedArray())
+            binding.customerBillRecyclerView.adapter = CustomerBillAdapter(it.toTypedArray(), AdapaterCallback())
             binding.addCustomerButton.setOnClickListener {
                 val action =
                     CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
@@ -51,5 +53,28 @@ class CustomersBillsFragment : Fragment() {
         super.onResume()
         viewModel.fetchData()
         binding.customerBillRecyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    inner class AdapaterCallback: AdapterOnClickListener {
+        override fun onTileContactClick(position: Int) {
+            val list = viewModel.customerBills.value
+            val customerBill = list?.find { it.id == list[position].id } ?: return
+            val action =
+                CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
+                    customerBill.id!!.toInt(),
+                    CustomerBillTypeEnum.EDIT
+                )
+            binding.root.findNavController().navigate(action)
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        override fun onRemoveClick(position: Int) {
+            val list = viewModel.customerBills.value
+            val customerBill = list?.find { it.id == list[position].id } ?: return
+            customerBill.id?.let {
+                viewModel.deleteCustomerBill(it.toInt())
+                binding.customerBillRecyclerView.adapter?.notifyDataSetChanged()
+            }
+        }
     }
 }

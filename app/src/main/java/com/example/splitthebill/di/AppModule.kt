@@ -5,6 +5,7 @@ import com.example.splitthebill.data.repositories.customers.CustomersRepository
 import com.example.splitthebill.data.repositories.orders.GetCustomerOrdersByIdRepositoryImplementation
 import com.example.splitthebill.data.repositories.orders.OrdersRepository
 import com.example.splitthebill.data.usecases.customers.CreateOrUpdateCustomerBillImplementantion
+import com.example.splitthebill.data.usecases.customers.DeleteCustomerBillImplementation
 import com.example.splitthebill.data.usecases.customers.GetCustomerBillDetailsImplementation
 import com.example.splitthebill.data.usecases.customers.GetCustomersBillsImplementation
 import com.example.splitthebill.data.usecases.orders.CreateOrUpdateOrderItemImplementantion
@@ -57,6 +58,10 @@ class AppModuleImplementation(
             createOrUpdateCustomerBill = CreateOrUpdateCustomerBillImplementantion(
                 createCustomerBillRepository = customerRepository,
                 updateCustomerBillRepository = customerRepository
+            ),
+            deleteCustomerBillUseCase = DeleteCustomerBillImplementation(
+                deleteAllOrderItemsRepository = ordersRepository,
+                deleteCustomerBillRepository = customerRepository
             )
         )
     }

@@ -21,4 +21,7 @@ interface CustomerDao {
 
     @Query("SELECT * FROM customer c WHERE id = :customerId")
     suspend fun getCustomerById(customerId: Long): List<Customer>
+
+    @Query("DELETE FROM customer WHERE id = :customerId")
+    suspend fun deleteCustomerBill(customerId: Long): Unit
 }
