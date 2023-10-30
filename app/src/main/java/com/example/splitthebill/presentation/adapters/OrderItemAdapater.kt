@@ -10,7 +10,7 @@ import com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum
 import com.example.splitthebill.domain.entities.orderitem.OrderItem
 import com.example.splitthebill.presentation.customerdetails.CustomerBillDetailsFragmentDirections
 
-class OrderItemAdapater(private val dataset: Array<OrderItem>) :
+class OrderItemAdapater(private val dataset: Array<OrderItem>, private val customerId: Long) :
     RecyclerView.Adapter<OrderItemAdapater.OrderItemViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -45,10 +45,12 @@ class OrderItemAdapater(private val dataset: Array<OrderItem>) :
                 orderItem.quantity.toString() + "x"
 
             binding.root.setOnClickListener {
-                val action = CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
-                    orderItem,
-                    OrderItemTypeEnum.EDIT
-                )
+                val action =
+                    CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
+                        orderItem,
+                        OrderItemTypeEnum.EDIT,
+                        customerId
+                    )
                 binding.root.findNavController().navigate(action)
             }
         }

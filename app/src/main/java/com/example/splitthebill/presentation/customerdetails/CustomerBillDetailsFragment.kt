@@ -17,6 +17,7 @@ import com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum
 import com.example.splitthebill.domain.entities.orderitem.OrderItem
 import com.example.splitthebill.infra.room.entities.Order
 import com.example.splitthebill.presentation.adapters.OrderItemAdapater
+import com.example.splitthebill.presentation.customers.CustomersBillsFragment
 
 class CustomerBillDetailsFragment : Fragment() {
     private val args: CustomerBillDetailsFragmentArgs by navArgs()
@@ -33,7 +34,10 @@ class CustomerBillDetailsFragment : Fragment() {
             viewModel.fetchDetails(args.customerId)
             val observer = Observer<CustomerBillDetails> { customerDetails ->
                 binding.customerBillRecyclerView.adapter =
-                    OrderItemAdapater(customerDetails.orderItems.toTypedArray())
+                    OrderItemAdapater(
+                        customerDetails.orderItems.toTypedArray(),
+                        args.customerId.toLong()
+                    )
                 binding.customerBillRecyclerView.layoutManager =
                     LinearLayoutManager(binding.root.context)
 
@@ -43,7 +47,8 @@ class CustomerBillDetailsFragment : Fragment() {
                     val action =
                         CustomerBillDetailsFragmentDirections.actionCustomerBillDetailsFragmentToOrderItemDetails(
                             null,
-                            OrderItemTypeEnum.CREATE
+                            OrderItemTypeEnum.CREATE,
+                            args.customerId.toLong()
                         )
                     findNavController().navigate(action)
                 }

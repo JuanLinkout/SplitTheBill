@@ -1,5 +1,6 @@
 package com.example.splitthebill.presentation.customers
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,16 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.splitthebill.databinding.FragmentCustomersBillsBinding
 import com.example.splitthebill.domain.entities.customers.CustomerBill
-import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.entities.navigation.CustomerBillTypeEnum
 import com.example.splitthebill.presentation.adapters.CustomerBillAdapter
-import com.example.splitthebill.presentation.customerdetails.CustomerBillDetailsViewModel
 import com.example.splitthebill.presentation.utils.StatusBarUtil
 
 class CustomersBillsFragment : Fragment() {
@@ -47,5 +44,12 @@ class CustomersBillsFragment : Fragment() {
         binding.customerBillRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
 
         return binding.root
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchData()
+        binding.customerBillRecyclerView.adapter?.notifyDataSetChanged()
     }
 }

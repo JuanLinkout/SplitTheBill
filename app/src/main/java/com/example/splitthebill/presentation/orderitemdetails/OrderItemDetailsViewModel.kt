@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 class OrderItemDetailsViewModel(private val createOrUpdateOrderItemUseCase: CreateOrUpdateOrderItemUseCase) :
     ViewModel() {
 
-    fun createOrUpdate(orderItem: OrderItem) {
+    fun createOrUpdate(orderItem: OrderItem, customerId: Long) {
         viewModelScope.launch {
-            createOrUpdateOrderItemUseCase.execute(orderItem, 0)
+            createOrUpdateOrderItemUseCase.execute(orderItem, customerId)
         }
     }
 

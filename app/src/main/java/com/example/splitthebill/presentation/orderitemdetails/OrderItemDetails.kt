@@ -30,26 +30,30 @@ class OrderItemDetails : Fragment() {
         if (args.type == OrderItemTypeEnum.CREATE) {
             binding.confirmButton.text = "Confirmar criação"
             binding.confirmButton.setOnClickListener {
-                viewModel.createOrUpdate(OrderItem(
-                    id = null,
-                    name = binding.nameEditText.text.toString(),
-                    price = binding.priceEditText.text.toString().toLong(),
-                    quantity = binding.quantityEditText.text.toString().toLong(),
-                ))
+                viewModel.createOrUpdate(
+                    OrderItem(
+                        id = null,
+                        name = binding.nameEditText.text.toString(),
+                        price = binding.priceEditText.text.toString().toDouble(),
+                        quantity = binding.quantityEditText.text.toString().toLong(),
+                    ), args.customerId
+                )
                 findNavController().popBackStack()
             }
         } else if (args.type == OrderItemTypeEnum.EDIT) {
             binding.confirmButton.text = "Confirmar alteração"
-            binding.nameEditText.setText(args.orderItem.name)
-            binding.priceEditText.setText(args.orderItem.price.toString())
-            binding.quantityEditText.setText(args.orderItem.quantity.toString())
+            binding.nameEditText.setText(args.orderItem?.name)
+            binding.priceEditText.setText(args.orderItem?.price.toString())
+            binding.quantityEditText.setText(args.orderItem?.quantity.toString())
             binding.confirmButton.setOnClickListener {
-                viewModel.createOrUpdate(OrderItem(
-                    id = args.orderItem.id,
-                    name = binding.nameEditText.text.toString(),
-                    price = binding.priceEditText.text.toString().toLong(),
-                    quantity = binding.quantityEditText.text.toString().toLong(),
-                ))
+                viewModel.createOrUpdate(
+                    OrderItem(
+                        id = args.orderItem?.id,
+                        name = binding.nameEditText.text.toString(),
+                        price = binding.priceEditText.text.toString().toDouble(),
+                        quantity = binding.quantityEditText.text.toString().toLong(),
+                    ), args.customerId
+                )
                 findNavController().popBackStack()
             }
         }

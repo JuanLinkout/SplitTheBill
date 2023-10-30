@@ -40,9 +40,13 @@
         tools:layout="@layout/fragment_order_item_details" >
         <argument
             android:name="orderItem"
-            app:argType="com.example.splitthebill.domain.entities.orderitem.OrderItem" />
+            app:argType="com.example.splitthebill.domain.entities.orderitem.OrderItem"
+            app:nullable="true" />
         <argument
             android:name="type"
             app:argType="com.example.splitthebill.domain.entities.navigation.OrderItemTypeEnum" />
+        <argument
+            android:name="customerId"
+            app:argType="long" />
     </fragment>
 </navigation>

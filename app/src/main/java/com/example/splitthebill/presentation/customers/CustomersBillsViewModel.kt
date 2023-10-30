@@ -15,12 +15,14 @@ class CustomersBillsViewModel(private val getCustomersBillsUseCase: GetCustomers
     private val _customerBills = MutableLiveData<List<CustomerBill>>()
     val customerBills: LiveData<List<CustomerBill>> = _customerBills
 
-    init {
+    fun fetchData() {
         viewModelScope.launch {
             val customerBillsList = getCustomersBillsUseCase.getCustomersBills()
             _customerBills.value = customerBillsList
         }
     }
+
+    init { fetchData() }
 
     companion object {
         fun Factory(): ViewModelProvider.Factory {
