@@ -22,7 +22,8 @@ class GetCustomersBillsImplementation(
                 id = it.id,
                 customerName = it.customerName,
                 totalPrice = totalPrice,
-                orderQuantity = ordersQuantity
+                orderQuantity = ordersQuantity,
+                orders = orders
             )
         }
         return parsedCustomers

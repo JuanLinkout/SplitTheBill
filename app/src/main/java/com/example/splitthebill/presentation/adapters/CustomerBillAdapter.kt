@@ -2,6 +2,7 @@ package com.example.splitthebill.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,14 @@ class CustomerBillAdapter(
             binding.customerInitialText.text = customerBill.customerName[0].toString()
             binding.customerTotalPrice.text = "Total: R$ " + customerBill.totalPrice.toString()
             binding.customerNameText.text = customerBill.customerName
+
+            var orderItemNames = ""
+            customerBill.orders.forEachIndexed { index, orderItem ->
+                orderItemNames += orderItem.name
+                if (index != customerBill.orders.size - 1) orderItemNames += ", "
+            }
+            if (orderItemNames.isEmpty()) { binding.orderItemsNamesTextView.visibility = View.GONE }
+            binding.orderItemsNamesTextView.text = orderItemNames
             binding.customerOrdersQuantityTxt.text =
                 "Pedidos " + customerBill.orderQuantity.toString()
             binding.deleteButton.setOnClickListener { onClickListener.onRemoveClick(position) }

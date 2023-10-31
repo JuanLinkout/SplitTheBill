@@ -1,6 +1,7 @@
 package com.example.splitthebill.domain.entities.customers
 
 import androidx.room.Embedded
+import com.example.splitthebill.domain.entities.orderitem.OrderItem
 
 data class CustomerBill(
     @Embedded
@@ -9,5 +10,6 @@ data class CustomerBill(
     @Embedded
     val totalPrice: Number,
     @Embedded
-    val orderQuantity: Number
+    val orderQuantity: Number,
+    val orders: List<OrderItem>
 )
