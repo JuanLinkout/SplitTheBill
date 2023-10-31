@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -34,6 +35,10 @@ class CustomerBillDetailsFragment : Fragment() {
     ): View {
         binding = FragmentCustomerBillDetailsBinding.inflate(layoutInflater)
 
+        viewModel.validationError.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
+
         if (args.type == CustomerBillTypeEnum.EDIT) {
             viewModel.fetchDetails(args.customerId)
             val observer = Observer<CustomerBillDetails> { customerDetails ->
@@ -58,14 +63,13 @@ class CustomerBillDetailsFragment : Fragment() {
                 }
 
                 binding.confirmButton.setOnClickListener {
-                    viewModel.createOrUpdate(
-                        CustomerBillDetails(
-                            customerName = binding.customerNameEditText.text.toString(),
-                            orderItems = emptyList(),
-                            id = customerDetails.id
-                        )
+                    val failed = viewModel.createOrUpdate(
+                        customerName = binding.customerNameEditText.text.toString(),
+                        id = customerDetails.id
                     )
-                    findNavController().popBackStack()
+                    if (!failed) {
+                        findNavController().popBackStack()
+                    }
                 }
             }
             viewModel.customerBillDetails.observe(viewLifecycleOwner, observer)
@@ -74,14 +78,13 @@ class CustomerBillDetailsFragment : Fragment() {
             binding.confirmButton.text = "Confirmar criação"
             binding.addOrderButton.visibility = View.GONE
             binding.confirmButton.setOnClickListener {
-                viewModel.createOrUpdate(
-                    CustomerBillDetails(
-                        customerName = binding.customerNameEditText.text.toString(),
-                        orderItems = emptyList(),
-                        id = null
-                    )
+                val failed = viewModel.createOrUpdate(
+                    customerName = binding.customerNameEditText.text.toString(),
+                    id = null
                 )
-                findNavController().popBackStack()
+                if (!failed) {
+                    findNavController().popBackStack()
+                }
             }
         }
 

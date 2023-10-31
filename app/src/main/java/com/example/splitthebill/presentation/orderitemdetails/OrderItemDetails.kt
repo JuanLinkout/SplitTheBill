@@ -2,11 +2,14 @@ package com.example.splitthebill.presentation.orderitemdetails
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.splitthebill.R
@@ -27,18 +30,23 @@ class OrderItemDetails : Fragment() {
     ): View {
         binding = FragmentOrderItemDetailsBinding.inflate(layoutInflater)
 
+        viewModel.validationErrorLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
+
         if (args.type == OrderItemTypeEnum.CREATE) {
             binding.confirmButton.text = "Confirmar criação"
             binding.confirmButton.setOnClickListener {
-                viewModel.createOrUpdate(
-                    OrderItem(
-                        id = null,
-                        name = binding.nameEditText.text.toString(),
-                        price = binding.priceEditText.text.toString().toDouble(),
-                        quantity = binding.quantityEditText.text.toString().toLong(),
-                    ), args.customerId
+                val failed = viewModel.createOrUpdate(
+                    name = binding.nameEditText.text.toString(),
+                    price = binding.priceEditText.text.toString(),
+                    quantity = binding.quantityEditText.text.toString(),
+                    id = null,
+                    customerId = args.customerId
                 )
-                findNavController().popBackStack()
+                if (!failed) {
+                    findNavController().popBackStack()
+                }
             }
         } else if (args.type == OrderItemTypeEnum.EDIT) {
             binding.confirmButton.text = "Confirmar alteração"
@@ -46,15 +54,16 @@ class OrderItemDetails : Fragment() {
             binding.priceEditText.setText(args.orderItem?.price.toString())
             binding.quantityEditText.setText(args.orderItem?.quantity.toString())
             binding.confirmButton.setOnClickListener {
-                viewModel.createOrUpdate(
-                    OrderItem(
-                        id = args.orderItem?.id,
-                        name = binding.nameEditText.text.toString(),
-                        price = binding.priceEditText.text.toString().toDouble(),
-                        quantity = binding.quantityEditText.text.toString().toLong(),
-                    ), args.customerId
+                val failed = viewModel.createOrUpdate(
+                    id = args.orderItem?.id,
+                    name = binding.nameEditText.text.toString(),
+                    price = binding.priceEditText.text.toString(),
+                    quantity = binding.quantityEditText.text.toString(),
+                    customerId = args.customerId
                 )
-                findNavController().popBackStack()
+                if (!failed) {
+                    findNavController().popBackStack()
+                }
             }
         }
 

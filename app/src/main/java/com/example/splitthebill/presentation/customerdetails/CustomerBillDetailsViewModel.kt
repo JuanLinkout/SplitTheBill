@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.splitthebill.domain.entities.customers.CustomerBill
 import com.example.splitthebill.domain.entities.customers.CustomerBillDetails
 import com.example.splitthebill.domain.usecases.customers.CreateOrUpdateCustomerBillUseCase
 import com.example.splitthebill.domain.usecases.customers.GetCustomerBillDetailsUseCase
@@ -21,6 +22,9 @@ class CustomerBillDetailsViewModel(
     private val _customerBillDetails = MutableLiveData<CustomerBillDetails>()
     val customerBillDetails: LiveData<CustomerBillDetails> = _customerBillDetails
 
+    private val _validationError = MutableLiveData<String>()
+    val validationError: LiveData<String> = _validationError
+
     fun fetchDetails(id: Number) {
         viewModelScope.launch {
             val response = getCustomerBillDetails.getCustomerBillDetails(id)
@@ -28,10 +32,22 @@ class CustomerBillDetailsViewModel(
         }
     }
 
-    fun createOrUpdate(customerBill: CustomerBillDetails) {
-        viewModelScope.launch {
-            createOrUpdateCustomerBill.execute(customerBill)
+    fun createOrUpdate(id: Number?, customerName: String): Boolean {
+        if (customerName.isEmpty()) {
+            _validationError.value = "Preencha todos os campos"
+            return true
         }
+
+        viewModelScope.launch {
+            createOrUpdateCustomerBill.execute(
+                CustomerBillDetails(
+                    id = id,
+                    customerName = customerName,
+                    orderItems = emptyList()
+                )
+            )
+        }
+        return false
     }
 
     fun delete(orderItemId: Number, customerId: Number) {
