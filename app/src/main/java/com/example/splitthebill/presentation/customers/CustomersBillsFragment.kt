@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +29,20 @@ class CustomersBillsFragment : Fragment() {
     ): View {
         binding = FragmentCustomersBillsBinding.inflate(layoutInflater)
 
-        val observer = Observer<List<CustomerBill>> {
-            binding.customerBillRecyclerView.adapter = CustomerBillAdapter(it.toTypedArray(), AdapaterCallback())
+        viewModel.splittedBills.observe(viewLifecycleOwner) {
+            if (!it.isEmpty()) {
+                binding.root.findNavController().navigate(
+                    CustomersBillsFragmentDirections.actionCustomersBillsFragmentToSplitResultFragment(
+                        it.toTypedArray()
+                    )
+                )
+                viewModel.clearSplittedBills()
+            }
+        }
+
+        viewModel.customerBills.observe(viewLifecycleOwner) {
+            binding.customerBillRecyclerView.adapter =
+                CustomerBillAdapter(it.toTypedArray(), AdapaterCallback())
             binding.addCustomerButton.setOnClickListener {
                 val action =
                     CustomersBillsFragmentDirections.actionCustomersBillsFragmentToCustomerBillDetailsFragment(
@@ -38,8 +51,11 @@ class CustomersBillsFragment : Fragment() {
                     )
                 binding.root.findNavController().navigate(action)
             }
+
+            binding.confirmButton.setOnClickListener {
+                viewModel.splitBills()
+            }
         }
-        viewModel.customerBills.observe(viewLifecycleOwner, observer)
 
         val statusBarHeight = StatusBarUtil.getStatusBarHeight(binding.root.context)
         binding.customerBillRecyclerView.setPadding(16, 16 + statusBarHeight, 16, 16)
@@ -55,7 +71,7 @@ class CustomersBillsFragment : Fragment() {
         binding.customerBillRecyclerView.adapter?.notifyDataSetChanged()
     }
 
-    inner class AdapaterCallback: AdapterOnClickListener {
+    inner class AdapaterCallback : AdapterOnClickListener {
         override fun onTileContactClick(position: Int) {
             val list = viewModel.customerBills.value
             val customerBill = list?.find { it.id == list[position].id } ?: return

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="12dp"
+    android:layout_marginBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/customer_bill_item_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/customerInitialView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/customer_bill_item_initial_background"
+        app:circularflow_radiusInDP="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        app:layout_constraintTop_toTopOf="@id/customerInitialView"
+        app:layout_constraintBottom_toBottomOf="@id/customerInitialView"
+        app:layout_constraintStart_toStartOf="@id/customerInitialView"
+        app:layout_constraintEnd_toEndOf="@id/customerInitialView"
+        android:id="@+id/customerInitialText"
+        android:text="J"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/customerNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Juan Lucas Rossi"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/customerInitialView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
+    <TextView
+        android:id="@+id/transactionTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Deve pagar"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/customerInitialView"
+        app:layout_constraintStart_toEndOf="@id/customerInitialView" />
+
+    <TextView
+        android:id="@+id/transactioValueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valor: R$ 390,99"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

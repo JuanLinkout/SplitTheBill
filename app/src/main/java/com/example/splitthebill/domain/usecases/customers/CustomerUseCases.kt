@@ -4,5 +4,7 @@ data class CustomerUseCases(
     val createOrUpdateCustomerBill: CreateOrUpdateCustomerBillUseCase,
     val getCustomerBillDetails: GetCustomerBillDetailsUseCase,
     val getCustomersBills: GetCustomersBillsUseCase,
-    val deleteCustomerBillUseCase: DeleteCustomerBillUseCase
+    val deleteCustomerBillUseCase: DeleteCustomerBillUseCase,
+    val deleteAllCustomersBillsUseCase: DeleteAllCustomersBillsUseCase,
+    val splitCustomerBillsUseCase: SplitCustomerBillsUseCase
 )

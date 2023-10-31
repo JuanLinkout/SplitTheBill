@@ -17,6 +17,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_customersBillsFragment_to_splitResultFragment"
+            app:destination="@id/splitResultFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/customerBillDetailsFragment"
@@ -52,5 +59,14 @@
         <argument
             android:name="customerId"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/splitResultFragment"
+        android:name="com.example.splitthebill.presentation.splitresult.SplitResultFragment"
+        android:label="fragment_split_result"
+        tools:layout="@layout/fragment_split_result" >
+        <argument
+            android:name="splittedBills"
+            app:argType="com.example.splitthebill.domain.entities.customers.CustomerSplitResult[]" />
     </fragment>
 </navigation>
