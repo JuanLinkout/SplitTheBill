@@ -50,6 +50,10 @@ class CustomerBillDetailsFragment : Fragment() {
                 binding.customerBillRecyclerView.layoutManager =
                     LinearLayoutManager(binding.root.context)
 
+                if (customerDetails.orderItems.size > 2) {
+                    binding.addOrderButton.visibility = View.GONE
+                }
+
                 binding.customerNameEditText.setText(customerDetails.customerName)
                 binding.confirmButton.text = "Confirmar edição"
                 binding.addOrderButton.setOnClickListener {
