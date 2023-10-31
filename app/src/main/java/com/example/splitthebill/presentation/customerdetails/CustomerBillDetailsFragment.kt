@@ -52,6 +52,8 @@ class CustomerBillDetailsFragment : Fragment() {
 
                 if (customerDetails.orderItems.size > 2) {
                     binding.addOrderButton.visibility = View.GONE
+                } else {
+                    binding.addOrderButton.visibility = View.VISIBLE
                 }
 
                 binding.customerNameEditText.setText(customerDetails.customerName)
