@@ -41,6 +41,12 @@ class CustomersBillsFragment : Fragment() {
         }
 
         viewModel.customerBills.observe(viewLifecycleOwner) {
+            if (it.size > 1) {
+                binding.confirmButton.visibility = View.VISIBLE
+            } else {
+                binding.confirmButton.visibility = View.GONE
+            }
+
             binding.customerBillRecyclerView.adapter =
                 CustomerBillAdapter(it.toTypedArray(), AdapaterCallback())
             binding.addCustomerButton.setOnClickListener {
